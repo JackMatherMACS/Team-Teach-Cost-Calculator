@@ -1,0 +1,59 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+  <title>Staff Cost Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 30px; }
+    .calc-box { max-width: 420px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, select, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 1em; }
+    button { background: #007bff; color: white; font-weight: bold; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .result { font-size: 1.4em; margin-top: 15px; font-weight: bold; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="calc-box">
+    <h2>Staff Cost Calculator</h2>
+
+    <label>Year:</label>
+    <select id="year">
+      <option value="1">Year 1</option>
+      <option value="2">Year 2 and Beyond</option>
+    </select>
+    
+    <label>Number of Trainers:</label>
+    <input id="trainers" type="number" step="1" min="0">
+    
+    <label>Number of Workbooks:</label>
+    <input id="workbooks" type="number" step="1" min="0">
+    
+    <button onclick="calculate()">Calculate Total</button>
+    
+    <div class="result">Total: $<span id="output">0.00</span></div>
+  </div>
+
+  <script>
+    function calculate() {
+      let year = document.getElementById('year').value;
+      let trainers = parseInt(document.getElementById('trainers').value) || 0;
+      let workbooks = parseInt(document.getElementById('workbooks').value) || 0;
+
+      let trainerCost, workbookCost;
+
+      if (year === "1") {
+        trainerCost = 1229.25;
+        workbookCost = 50;
+      } else {
+        trainerCost = 614.62;
+        workbookCost = 50;
+      }
+
+      let total = (trainers * trainerCost) + (workbooks * workbookCost);
+
+      document.getElementById('output').textContent = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
+
