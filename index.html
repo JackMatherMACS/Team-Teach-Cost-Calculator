@@ -1,4 +1,4 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Staff Cost Calculator</title>
@@ -17,7 +17,7 @@
     <h2>Staff Cost Calculator</h2>
 
     <label>Year:</label>
-    <select id="year">
+    <select id="year" onchange="toggleWorkbooks()">
       <option value="1">Year 1</option>
       <option value="2">Year 2 and Beyond</option>
     </select>
@@ -25,8 +25,10 @@
     <label>Number of Trainers:</label>
     <input id="trainers" type="number" step="1" min="0">
     
-    <label>Number of Workbooks:</label>
-    <input id="workbooks" type="number" step="1" min="0">
+    <div id="workbook-section">
+      <label>Number of Workbooks:</label>
+      <input id="workbooks" type="number" step="1" min="0">
+    </div>
     
     <button onclick="calculate()">Calculate Total</button>
     
@@ -34,26 +36,40 @@
   </div>
 
   <script>
+    function toggleWorkbooks() {
+      let year = document.getElementById('year').value;
+      let workbookSection = document.getElementById('workbook-section');
+      
+      // Hide workbook section for Year 2 and beyond
+      if (year === "2") {
+        workbookSection.style.display = "none";
+      } else {
+        workbookSection.style.display = "block";
+      }
+    }
+
     function calculate() {
       let year = document.getElementById('year').value;
       let trainers = parseInt(document.getElementById('trainers').value) || 0;
       let workbooks = parseInt(document.getElementById('workbooks').value) || 0;
 
-      let trainerCost, workbookCost;
+      let trainerCost, workbookCost = 0;
 
       if (year === "1") {
-        trainerCost = 1229.25;
+        trainerCost = 2825;
         workbookCost = 50;
       } else {
-        trainerCost = 614.62;
-        workbookCost = 50;
+        trainerCost = 631.87;
+        workbooks = 0; // No workbook cost in Year 2+
       }
 
       let total = (trainers * trainerCost) + (workbooks * workbookCost);
 
       document.getElementById('output').textContent = total.toFixed(2);
     }
+
+    // Run once at start to hide/show workbook input properly
+    toggleWorkbooks();
   </script>
 </body>
 </html>
-
