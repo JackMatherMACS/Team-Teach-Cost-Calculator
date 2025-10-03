@@ -19,7 +19,7 @@
     <label>Year:</label>
     <select id="year" onchange="toggleWorkbooks()">
       <option value="1">Year 1</option>
-      <option value="2">Year 2 and Beyond</option>
+      <option value="2">Year 2</option>
     </select>
     
     <label>Number of Trainers:</label>
@@ -32,7 +32,7 @@
     
     <button onclick="calculate()">Calculate Total</button>
     
-    <div class="result">Total: $<span id="output">0.00</span></div>
+    <div class="result">Total (incl. GST): $<span id="output">0.00</span></div>
   </div>
 
   <script>
@@ -40,7 +40,7 @@
       let year = document.getElementById('year').value;
       let workbookSection = document.getElementById('workbook-section');
       
-      // Hide workbook section for Year 2 and beyond
+      // Hide workbook section for Year 2
       if (year === "2") {
         workbookSection.style.display = "none";
       } else {
@@ -56,11 +56,11 @@
       let trainerCost, workbookCost = 0;
 
       if (year === "1") {
-        trainerCost = 2825;
-        workbookCost = 50;
+        trainerCost = 2825; // Year 1 trainer cost (incl. GST)
+        workbookCost = 50;  // Workbook cost (incl. GST)
       } else {
-        trainerCost = 631.87;
-        workbooks = 0; // No workbook cost in Year 2+
+        trainerCost = 631.87; // Year 2 trainer cost (incl. GST)
+        workbooks = 0; // No workbooks in Year 2
       }
 
       let total = (trainers * trainerCost) + (workbooks * workbookCost);
