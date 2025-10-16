@@ -38,46 +38,51 @@
   </div>
 
   <script>
+    const TRAINER_COST_YEAR2PLUS = 631.87;
+    const WORKBOOK_COST = 50;
+
     function toggleWorkbooks() {
       const year = document.getElementById('year').value;
       const workbookSection = document.getElementById('workbook-section');
 
-      // Show workbooks in Year 1 and Year 3 only
+      // Show workbooks only in Year 1 and Year 3
       if (year === "1" || year === "3") {
         workbookSection.style.display = "block";
       } else {
         workbookSection.style.display = "none";
-        document.getElementById('workbooks').value = ""; // clear old value when hidden
+        document.getElementById('workbooks').value = "";
       }
     }
 
     function calculate() {
       const year = document.getElementById('year').value;
       const trainers = parseInt(document.getElementById('trainers').value) || 0;
-      let workbooks = parseInt(document.getElementById('workbooks').value) || 0;
+      const workbooks = parseInt(document.getElementById('workbooks').value) || 0;
 
-      let trainerCost = 0;
-      let workbookCost = 0;
+      let total = 0;
 
       if (year === "1") {
-        trainerCost = 0;                // Year 1 trainer = $0
-        workbookCost = 50;
-      } else if (year === "2") {
-        trainerCost = 631.87;
-        workbooks = 0;                  // No workbooks in Year 2
-      } else if (year === "3") {
-        trainerCost = 631.87;           // Reaccreditation trainer cost
-        workbookCost = 50;              // Plus workbook cost
-      } else if (year === "4") {
-        trainerCost = 631.87;
-        workbooks = 0;                  // No workbooks in Year 4
+        // Year 1: no trainer cost, only workbooks
+        total = workbooks * WORKBOOK_COST;
+      } 
+      else if (year === "2") {
+        // Year 2: trainer cost only
+        total = trainers * TRAINER_COST_YEAR2PLUS;
+      } 
+      else if (year === "3") {
+        // Year 3: trainer reaccreditation cost + workbooks
+        const trainerCostTotal = trainers * TRAINER_COST_YEAR2PLUS;
+        const workbookCostTotal = workbooks * WORKBOOK_COST;
+        total = trainerCostTotal + workbookCostTotal;
+      } 
+      else if (year === "4") {
+        // Year 4: trainer cost only
+        total = trainers * TRAINER_COST_YEAR2PLUS;
       }
 
-      const total = (trainers * trainerCost) + (workbooks * workbookCost);
       document.getElementById('output').textContent = total.toFixed(2);
     }
 
-    // Initialize UI on page load
     toggleWorkbooks();
   </script>
 </body>
