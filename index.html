@@ -47,6 +47,7 @@
         workbookSection.style.display = "block";
       } else {
         workbookSection.style.display = "none";
+        document.getElementById('workbooks').value = ""; // clear old value when hidden
       }
     }
 
@@ -59,29 +60,25 @@
       let workbookCost = 0;
 
       if (year === "1") {
-        trainerCost = 0;          // Year 1 trainer = $0
+        trainerCost = 0;                // Year 1 trainer = $0
         workbookCost = 50;
       } else if (year === "2") {
         trainerCost = 631.87;
-        workbooks = 0;            // No workbooks in Year 2
+        workbooks = 0;                  // No workbooks in Year 2
       } else if (year === "3") {
-        trainerCost = 631.87;
-        workbookCost = 50;        // Workbooks back in Year 3
+        trainerCost = 631.87;           // Reaccreditation trainer cost
+        workbookCost = 50;              // Plus workbook cost
       } else if (year === "4") {
         trainerCost = 631.87;
-        workbooks = 0;            // No workbooks in Year 4
+        workbooks = 0;                  // No workbooks in Year 4
       }
 
       const total = (trainers * trainerCost) + (workbooks * workbookCost);
       document.getElementById('output').textContent = total.toFixed(2);
     }
 
-    // Run once at start
+    // Initialize UI on page load
     toggleWorkbooks();
   </script>
 </body>
 </html>
-
-</body>
-</html>
-
