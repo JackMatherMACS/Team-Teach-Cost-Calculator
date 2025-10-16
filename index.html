@@ -20,6 +20,8 @@
     <select id="year" onchange="toggleWorkbooks()">
       <option value="1">Year 1</option>
       <option value="2">Year 2</option>
+      <option value="3">Year 3</option>
+      <option value="4">Year 4</option>
     </select>
     
     <label>Number of Trainers:</label>
@@ -37,39 +39,49 @@
 
   <script>
     function toggleWorkbooks() {
-      let year = document.getElementById('year').value;
-      let workbookSection = document.getElementById('workbook-section');
-      
-      // Hide workbook section for Year 2
-      if (year === "2") {
-        workbookSection.style.display = "none";
-      } else {
+      const year = document.getElementById('year').value;
+      const workbookSection = document.getElementById('workbook-section');
+
+      // Show workbooks in Year 1 and Year 3 only
+      if (year === "1" || year === "3") {
         workbookSection.style.display = "block";
+      } else {
+        workbookSection.style.display = "none";
       }
     }
 
     function calculate() {
-      let year = document.getElementById('year').value;
-      let trainers = parseInt(document.getElementById('trainers').value) || 0;
+      const year = document.getElementById('year').value;
+      const trainers = parseInt(document.getElementById('trainers').value) || 0;
       let workbooks = parseInt(document.getElementById('workbooks').value) || 0;
 
-      let trainerCost, workbookCost = 0;
+      let trainerCost = 0;
+      let workbookCost = 0;
 
       if (year === "1") {
-        trainerCost = 2825; // Year 1 trainer cost (incl. GST)
-        workbookCost = 50;  // Workbook cost (incl. GST)
-      } else {
-        trainerCost = 631.87; // Year 2 trainer cost (incl. GST)
-        workbooks = 0; // No workbooks in Year 2
+        trainerCost = 0;          // Year 1 trainer = $0
+        workbookCost = 50;
+      } else if (year === "2") {
+        trainerCost = 631.87;
+        workbooks = 0;            // No workbooks in Year 2
+      } else if (year === "3") {
+        trainerCost = 631.87;
+        workbookCost = 50;        // Workbooks back in Year 3
+      } else if (year === "4") {
+        trainerCost = 631.87;
+        workbooks = 0;            // No workbooks in Year 4
       }
 
-      let total = (trainers * trainerCost) + (workbooks * workbookCost);
-
+      const total = (trainers * trainerCost) + (workbooks * workbookCost);
       document.getElementById('output').textContent = total.toFixed(2);
     }
 
-    // Run once at start to hide/show workbook input properly
+    // Run once at start
     toggleWorkbooks();
   </script>
 </body>
 </html>
+
+</body>
+</html>
+
